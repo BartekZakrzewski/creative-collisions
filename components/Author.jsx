@@ -20,7 +20,7 @@ const Author = ({ post }) => (
           />
         </div>
         <h3 className="text-white mt-4 mb-4 text-xl font-bold">{auth.name}</h3>
-        <p className="text-white text-ls">{auth.bio}</p>
+        <p className="text-white text-ls sm:hidden">{auth.bio}</p>
       </div>
     ))}
   </div>
