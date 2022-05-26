@@ -25,17 +25,23 @@ const PostCard = ({ post }) => (
       <Link href={`/post/${post.slug}`}>{post.title}</Link>
     </h1>
     <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
-      <div className="flex items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center">
-        <Image
-          unoptimized
-          loader={grpahCMSImageLoader}
-          alt={post.author.name}
-          height="30px"
-          width="30px"
-          className="align-middle rounded-full"
-          src={post.author.photo.url}
-        />
-        <p className="inline align-middle text-gray-700 ml-2 font-medium text-lg">{post.author.name}</p>
+      <div className="flex flex-col items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center">
+        {post.author.map((auth, index) => (
+          <div key={index} className="flex items-center justify-center mb-2">
+            <Image
+              unoptimized
+              loader={grpahCMSImageLoader}
+              alt={auth.name}
+              height="30px"
+              width="30px"
+              className="align-middle rounded-full"
+              src={auth.photo.url}
+            />
+            <p className="inline align-middle text-gray-700 ml-2 font-medium text-lg">
+              {auth.name}
+            </p>
+          </div>
+        ))}
       </div>
       <div className="font-medium text-gray-700">
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline mr-2 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
