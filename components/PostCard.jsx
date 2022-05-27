@@ -25,7 +25,7 @@ const PostCard = ({ post }) => (
       <Link href={`/post/${post.slug}`}>{post.title}</Link>
     </h1>
     <div className="block lg:flex text-center items-center justify-center mb-8 w-full">
-      <div className="flex flex-col items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center">
+      <div className="flex flex-col-reverse items-center justify-center mb-4 lg:mb-0 w-full lg:w-auto mr-8 items-center">
         {post.author.map((auth, index) => (
           <div key={index} className="flex items-center justify-center mb-2">
             <Image
