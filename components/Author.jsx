@@ -1,13 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 
+import Link from 'next/link';
 import { grpahCMSImageLoader } from '../util';
 
-const Author = ({ post }) => (
+const Author = ({ auth }) => (
   <div className="flex flex-col-reverse">
-    { post.author.map((auth, index) => (
-
-      <div key={index} className="text-center mt-20 mb-8 p-12 relative rounded-lg bg-black bg-opacity-20">
+    <Link href={`/authors/${auth.slug}`}>
+      <div className="cursor-pointer text-center mt-20 mb-8 p-12 relative rounded-lg bg-black bg-opacity-20">
         <div className="absolute left-0 right-0 -top-14">
           <Image
             unoptimized
@@ -22,7 +22,7 @@ const Author = ({ post }) => (
         <h3 className="text-white mt-4 mb-4 text-xl font-bold">{auth.name}</h3>
         <p className="hidden md:inline-block lg:inline-block text-white text-ls">{auth.bio}</p>
       </div>
-    ))}
+    </Link>
   </div>
 );
 

@@ -13,6 +13,7 @@ export const getPosts = async () => {
               bio
               name
               id
+              slug
               photo {
                 url
               }
@@ -37,6 +38,92 @@ export const getPosts = async () => {
   const result = await request(graphqlAPI, query);
 
   return result.postsConnection.edges;
+};
+
+export const getAuthorss = async () => {
+  const query = gql`
+    query GetAuthors() {
+      author{
+        name
+        slug
+        posts {
+          slug
+        }
+        bio
+        fullBio{
+          raw
+        }
+        photo {
+          url
+        }
+      }
+    }
+    # query GetAuthors($slug: String!) {
+    #   posts {
+    #     author(where: {slug: $slug}) {
+    #       bio
+    #       fullBio {
+    #         raw
+    #       }
+    #       name
+    #       slug
+    #       photo {
+    #         url
+    #       }
+    #       posts {
+    #         slug
+    #       }
+    #     }
+    #   }
+    # }
+  `;
+
+  const result = await request(graphqlAPI, query);
+
+  return result.author;
+};
+
+export const getAuthors = async (slug) => {
+  const query = gql`
+    query GetAuthors($slug: String!) {
+      author(where: {slug: $slug}) {
+        name
+        slug
+        posts {
+          slug
+        }
+        bio
+        fullBio{
+          raw
+        }
+        photo {
+          url
+        }
+      }
+    }
+    # query GetAuthors($slug: String!) {
+    #   posts {
+    #     author(where: {slug: $slug}) {
+    #       bio
+    #       fullBio {
+    #         raw
+    #       }
+    #       name
+    #       slug
+    #       photo {
+    #         url
+    #       }
+    #       posts {
+    #         slug
+    #       }
+    #     }
+    #   }
+    # }
+  `;
+
+  const result = await request(graphqlAPI, query, { slug });
+
+  return result.author;
 };
 
 export const getCategories = async () => {
@@ -66,6 +153,7 @@ export const getPostDetails = async (slug) => {
         author{
           name
           bio
+          slug
           photo {
             url
           }
@@ -155,6 +243,7 @@ export const getCategoryPost = async (slug) => {
               bio
               name
               id
+              slug
               photo {
                 url
               }
@@ -187,6 +276,7 @@ export const getFeaturedPosts = async () => {
       posts(where: {featuredPost: true}) {
         author {
           name
+          slug
           photo {
             url
           }
@@ -204,6 +294,50 @@ export const getFeaturedPosts = async () => {
   const result = await request(graphqlAPI, query);
 
   return result.posts;
+};
+
+export const getFeaturedPostsAuth = async (auth) => {
+  const query = gql`
+    # query GetCategoryPost($auth: String!) {
+    #   posts(where: {author_some: {slug: $auth}, featuredPost: true}) {
+    #     author {
+    #       name
+    #       slug
+    #       photo {
+    #         url
+    #       }
+    #     }
+    #     featuredImage {
+    #       url
+    #     }
+    #     title
+    #     slug
+    #     createdAt
+    #   }
+    # }
+    query GetCategoryPost($auth: String!) {
+      author(where: {slug: $auth}) {
+        posts {
+          featuredImage {
+            url
+          }
+          slug
+          title
+          createdAt
+          author {
+            name
+            photo {
+              url
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const result = await request(graphqlAPI, query, { auth });
+
+  return result.author.posts;
 };
 
 export const submitComment = async (obj) => {
