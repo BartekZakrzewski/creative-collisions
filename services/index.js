@@ -42,19 +42,20 @@ export const getPosts = async () => {
 
 export const getAuthorss = async () => {
   const query = gql`
-    query GetAuthors() {
-      author{
-        name
-        slug
-        posts {
-          slug
-        }
+    query MyQuery {
+      authors {
         bio
-        fullBio{
-          raw
-        }
+        name
         photo {
           url
+        }
+        slug
+        posts {
+          featuredImage {
+            url
+          }
+          slug
+          title
         }
       }
     }
@@ -80,7 +81,7 @@ export const getAuthorss = async () => {
 
   const result = await request(graphqlAPI, query);
 
-  return result.author;
+  return result.authors;
 };
 
 export const getAuthors = async (slug) => {
