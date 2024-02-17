@@ -19,6 +19,7 @@ export const getPosts = async () => {
               }
             }
             createdAt
+            publishingDate
             slug
             title
             excerpt
@@ -59,24 +60,6 @@ export const getAuthorss = async () => {
         }
       }
     }
-    # query GetAuthors($slug: String!) {
-    #   posts {
-    #     author(where: {slug: $slug}) {
-    #       bio
-    #       fullBio {
-    #         raw
-    #       }
-    #       name
-    #       slug
-    #       photo {
-    #         url
-    #       }
-    #       posts {
-    #         slug
-    #       }
-    #     }
-    #   }
-    # }
   `;
 
   const result = await request(graphqlAPI, query);
@@ -102,24 +85,7 @@ export const getAuthors = async (slug) => {
         }
       }
     }
-    # query GetAuthors($slug: String!) {
-    #   posts {
-    #     author(where: {slug: $slug}) {
-    #       bio
-    #       fullBio {
-    #         raw
-    #       }
-    #       name
-    #       slug
-    #       photo {
-    #         url
-    #       }
-    #       posts {
-    #         slug
-    #       }
-    #     }
-    #   }
-    # }
+  }
   `;
 
   const result = await request(graphqlAPI, query, { slug });
@@ -160,6 +126,7 @@ export const getPostDetails = async (slug) => {
           }
         }
         createdAt
+        publishingDate
         slug
         content {
           raw
@@ -189,6 +156,7 @@ export const getSimilarPosts = async (categories, slug) => {
           url
         }
         createdAt
+        publishingDate
         slug
       }
     }
@@ -211,6 +179,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
           url
         }
         createdAt
+        publishingDate
         slug
       }
       previous:posts(
@@ -223,6 +192,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
           url
         }
         createdAt
+        publishingDate
         slug
       }
     }
@@ -250,6 +220,7 @@ export const getCategoryPost = async (slug) => {
               }
             }
             createdAt
+            publishingDate
             slug
             title
             excerpt
@@ -288,6 +259,7 @@ export const getFeaturedPosts = async () => {
         title
         slug
         createdAt
+        publishingDate
       }
     }   
   `;
@@ -299,23 +271,6 @@ export const getFeaturedPosts = async () => {
 
 export const getFeaturedPostsAuth = async (auth) => {
   const query = gql`
-    # query GetCategoryPost($auth: String!) {
-    #   posts(where: {author_some: {slug: $auth}, featuredPost: true}) {
-    #     author {
-    #       name
-    #       slug
-    #       photo {
-    #         url
-    #       }
-    #     }
-    #     featuredImage {
-    #       url
-    #     }
-    #     title
-    #     slug
-    #     createdAt
-    #   }
-    # }
     query GetCategoryPost($auth: String!) {
       author(where: {slug: $auth}) {
         posts {
@@ -325,6 +280,7 @@ export const getFeaturedPostsAuth = async (auth) => {
           slug
           title
           createdAt
+          publishingDate
           author {
             name
             photo {
@@ -382,6 +338,7 @@ export const getRecentPosts = async () => {
           url
         }
         createdAt
+        publishingDate
         slug
       }
     }
