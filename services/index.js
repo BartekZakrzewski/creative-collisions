@@ -85,7 +85,6 @@ export const getAuthors = async (slug) => {
         }
       }
     }
-  }
   `;
 
   const result = await request(graphqlAPI, query, { slug });
