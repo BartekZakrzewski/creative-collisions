@@ -19,7 +19,7 @@ export const getPosts = async () => {
               }
             }
             createdAt
-            publishingDate
+            realDate
             slug
             title
             excerpt
@@ -125,7 +125,7 @@ export const getPostDetails = async (slug) => {
           }
         }
         createdAt
-        publishingDate
+        realDate
         slug
         content {
           raw
@@ -155,7 +155,7 @@ export const getSimilarPosts = async (categories, slug) => {
           url
         }
         createdAt
-        publishingDate
+        realDate
         slug
       }
     }
@@ -170,7 +170,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
     query GetAdjacentPosts($createdAt: DateTime!,$slug:String!) {
       next:posts(
         first: 1
-        orderBy: createdAt_ASC
+        orderBy: realDate_ASC
         where: {slug_not: $slug, AND: {createdAt_gte: $createdAt}}
       ) {
         title
@@ -178,12 +178,12 @@ export const getAdjacentPosts = async (createdAt, slug) => {
           url
         }
         createdAt
-        publishingDate
+        realDate
         slug
       }
       previous:posts(
         first: 1
-        orderBy: createdAt_DESC
+        orderBy: realDate_DESC
         where: {slug_not: $slug, AND: {createdAt_lte: $createdAt}}
       ) {
         title
@@ -191,7 +191,7 @@ export const getAdjacentPosts = async (createdAt, slug) => {
           url
         }
         createdAt
-        publishingDate
+        realDate
         slug
       }
     }
@@ -219,7 +219,7 @@ export const getCategoryPost = async (slug) => {
               }
             }
             createdAt
-            publishingDate
+            realDate
             slug
             title
             excerpt
@@ -258,7 +258,7 @@ export const getFeaturedPosts = async () => {
         title
         slug
         createdAt
-        publishingDate
+        realDate
       }
     }   
   `;
@@ -279,7 +279,7 @@ export const getFeaturedPostsAuth = async (auth) => {
           slug
           title
           createdAt
-          publishingDate
+          realDate
           author {
             name
             photo {
@@ -329,7 +329,7 @@ export const getRecentPosts = async () => {
   const query = gql`
     query GetPostDetails() {
       posts(
-        orderBy: createdAt_ASC
+        orderBy: realDate_ASC
         last: 3
       ) {
         title
@@ -337,7 +337,7 @@ export const getRecentPosts = async () => {
           url
         }
         createdAt
-        publishingDate
+        realDate
         slug
       }
     }
